@@ -14,16 +14,14 @@ cursor = db.cursor()
 
 #获取2万到15万的房价区间array
 price_range = np.arange(10000, 180000, 5000)
-
+#保存对应区间下房屋总量
 price_data = []
 
 def main():
 	global tables 
 	tables = show_tables()
 
-
 	x = 0
-
 	while x < len(price_range) - 1:
 		num = select_price(price_range[x],price_range[x + 1])
 		x = x + 1
@@ -33,7 +31,14 @@ def main():
 
 	# pdb.set_trace() # 运行到这里会自动暂停
 
-	plt.plot(price_range[1:], data)
+	fig, ax = plt.subplots()
+	ax.plot(price_range[1:], data)
+
+
+	ax.set_title('Beijing House Price In April')
+	ax.set_xlabel('Price Range')
+	ax.set_ylabel('House Volume')
+	
 	plt.show()
 
 def select_price(from_price, end_price):
